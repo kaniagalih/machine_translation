@@ -80,7 +80,10 @@ def get_vocab(data):
             if word not in all_javanese_words:
                 all_javanese_words.add(word)
 
-    return all_ind_words, all_javanese_words
+    num_encoder_tokens = len(all_ind_words)
+    num_decoder_tokens = len(all_javanese_words)
+
+    return all_ind_words, all_javanese_words, num_encoder_tokens, num_decoder_tokens
 
 
 def tokenization(lines):
@@ -111,11 +114,20 @@ def main():
     combined_data = shuffle(combined_data)
 
     # Get vocabulary
-    all_ind_words, all_javanese_words = get_vocab(combined_data)
+    all_ind_words, all_javanese_words, num_encoder_tokens, num_decoder_tokens = (
+        get_vocab(combined_data)
+    )
 
     # Tokenization
     java_tokenizer = tokenization(combined_data.text)
     indo_tokenizer = tokenization(combined_data.label)
+
+    java_tokenizer = tokenization(combined_data.text)
+    java_vocab_size = len(java_tokenizer.word_index) + 1
+
+    # prepare indo tokenizer
+    indo_tokenizer = tokenization(combined_data.label)
+    indo_vocab_size = len(indo_tokenizer.word_index) + 1
 
     maxlength = combined_data["text"].apply(lambda x: len(x.split())).max()
 
@@ -138,7 +150,12 @@ def main():
                 "y_test": y_test,
                 "java_tokenizer": java_tokenizer,
                 "indo_tokenizer": indo_tokenizer,
+                "java_vocab_size": java_vocab_size,
+                "java_vocab_size": java_vocab_size,
+                "indo_vocab_size": indo_vocab_size,
                 "maxlength": maxlength,
+                "num_encoder_tokens": num_encoder_tokens,
+                "num_decoder_tokens": num_decoder_tokens,
             },
             f,
         )
