@@ -22,6 +22,6 @@ attention: true
 # val_data_path: path/to/validation/data
 # test_data_path: path/to/test/data
 
-# # Checkpoints and logs
-# checkpoint_path: path/to/checkpoints
-# log_dir: path/to/logs
+# Checkpoints and logs
+checkpoint_path: path/to/checkpoints
+log_dir: path/to/logs
