@@ -1,13 +1,42 @@
-latent_dim: 300
-maxlength: 100  
-num_encoder_tokens: 5000  
-num_decoder_tokens: 5000  
-indo_vocab_size: 5000  
-
-# Training parameters
-optimizer: 'AdamW'
-loss: 'sparse_categorical_crossentropy'
-metrics:
-  - 'masked_accuracy'
-batch_size: 128
+X_test_shape: !!python/tuple
+- 1433
+- 68
+X_train_shape: !!python/tuple
+- 5728
+- 68
+attention: true
+batch_size: 64
 epochs: 20
+indo_vocab_size: 6780
+java_vocab_size: 10460
+latent_dim: 256
+learning_rate: 0.001
+loss: sparse_categorical_crossentropy
+maxlength: !!python/object/apply:numpy.core.multiarray.scalar
+- !!python/object/apply:numpy.dtype
+  args:
+  - i8
+  - false
+  - true
+  state: !!python/tuple
+  - 3
+  - <
+  - null
+  - null
+  - null
+  - -1
+  - -1
+  - 0
+- !!binary |
+  RAAAAAAAAAA=
+metrics:
+- accuracy
+num_decoder_tokens: 10459
+num_encoder_tokens: 6779
+optimizer: Adam
+y_test_shape: !!python/tuple
+- 1433
+- 68
+y_train_shape: !!python/tuple
+- 5728
+- 68

@@ -129,7 +129,7 @@ def main():
     indo_tokenizer = tokenization(combined_data.label)
     indo_vocab_size = len(indo_tokenizer.word_index) + 1
 
-    maxlength = combined_data["text"].apply(lambda x: len(x.split())).max()
+    maxlength = combined_data["text"].str.split().str.len().max()
 
     # Encode sequences
     X = encode_sequences(java_tokenizer, maxlength, combined_data.text)
@@ -156,10 +156,9 @@ def main():
                 "maxlength": maxlength,
                 "num_encoder_tokens": num_encoder_tokens,
                 "num_decoder_tokens": num_decoder_tokens,
-            },
-            f,
+            }
+            
         )
-
-
+    
 if __name__ == "__main__":
     main()
