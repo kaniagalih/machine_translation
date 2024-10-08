@@ -1,0 +1,13 @@
+latent_dim: 300
+maxlength: 100  
+num_encoder_tokens: 5000  
+num_decoder_tokens: 5000  
+indo_vocab_size: 5000  
+
+# Training parameters
+optimizer: 'AdamW'
+loss: 'sparse_categorical_crossentropy'
+metrics:
+  - 'masked_accuracy'
+batch_size: 128
+epochs: 20
