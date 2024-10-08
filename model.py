@@ -11,7 +11,6 @@ def load_config(config_path='config.yaml'):
 
 config = load_config()
 
-# Custom masked accuracy function
 def masked_accuracy(y_true, y_pred):
     # Reshape y_true if it's 3D
     if len(K.int_shape(y_true)) == 3:
@@ -32,7 +31,6 @@ def masked_accuracy(y_true, y_pred):
     mask = tf.cast(mask, dtype=tf.float32)
     return tf.reduce_sum(accuracies) / tf.reduce_sum(mask)
 
-# Function to build the model
 def build_model():
     # Encoder
     encoder_inputs = Input(shape=[config['maxlength']])
