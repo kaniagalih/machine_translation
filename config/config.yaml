@@ -1,42 +1,27 @@
-X_test_shape: !!python/tuple
-- 1433
-- 68
-X_train_shape: !!python/tuple
-- 5728
-- 68
-attention: true
-batch_size: 64
-epochs: 20
-indo_vocab_size: 6780
-java_vocab_size: 10460
+# Model parameters
 latent_dim: 256
+maxlength: 50
+num_encoder_tokens: 10000
+num_decoder_tokens: 10000
+indo_vocab_size: 10000
+
+# Training parameters
+batch_size: 64
+epochs: 100
 learning_rate: 0.001
-loss: sparse_categorical_crossentropy
-maxlength: !!python/object/apply:numpy.core.multiarray.scalar
-- !!python/object/apply:numpy.dtype
-  args:
-  - i8
-  - false
-  - true
-  state: !!python/tuple
-  - 3
-  - <
-  - null
-  - null
-  - null
-  - -1
-  - -1
-  - 0
-- !!binary |
-  RAAAAAAAAAA=
-metrics:
-- accuracy
-num_decoder_tokens: 10459
-num_encoder_tokens: 6779
 optimizer: Adam
-y_test_shape: !!python/tuple
-- 1433
-- 68
-y_train_shape: !!python/tuple
-- 5728
-- 68
+loss: categorical_crossentropy
+metrics:
+  - masked_accuracy
+  - accuracy
+
+# Model architecture
+attention: true
+# # File paths
+# train_data_path: path/to/train/data
+# val_data_path: path/to/validation/data
+# test_data_path: path/to/test/data
+
+# # Checkpoints and logs
+# checkpoint_path: path/to/checkpoints
+# log_dir: path/to/logs
