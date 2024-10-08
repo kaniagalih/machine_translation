@@ -176,7 +176,7 @@ def build_model():
         # Dense output layer
         decoder_dense = Dense(config['indo_vocab_size'], activation='softmax')
         decoder_outputs = decoder_dense(decoder_outputs)
-        
+
     # Build and return the model
     model = Model([encoder_inputs, decoder_inputs], decoder_outputs)
     

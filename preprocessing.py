@@ -129,7 +129,7 @@ def main():
     indo_tokenizer = tokenization(combined_data.label)
     indo_vocab_size = len(indo_tokenizer.word_index) + 1
 
-    maxlength = combined_data["text"].str.split().str.len().max()
+    maxlength = combined_data["text"].apply(lambda x: len(x.split())).max()
 
     # Encode sequences
     X = encode_sequences(java_tokenizer, maxlength, combined_data.text)
@@ -139,7 +139,6 @@ def main():
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=0.2, random_state=42
     )
-
     # Save processed data (Optional)
     with open("processed_data.pickle", "wb") as f:
         pickle.dump(
@@ -151,14 +150,16 @@ def main():
                 "java_tokenizer": java_tokenizer,
                 "indo_tokenizer": indo_tokenizer,
                 "java_vocab_size": java_vocab_size,
-                "java_vocab_size": java_vocab_size,
-                "indo_vocab_size": indo_vocab_size,
+                "indo_vocab_size": indo_vocab_size,  # Corrected this line
                 "maxlength": maxlength,
                 "num_encoder_tokens": num_encoder_tokens,
                 "num_decoder_tokens": num_decoder_tokens,
-            }
-            
+            },
+            f
         )
+
     
+
+
 if __name__ == "__main__":
     main()

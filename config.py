@@ -6,9 +6,9 @@ def load_processed_data(file_path='processed_data.pickle'):
     with open(file_path, 'rb') as f:
         return pickle.load(f)
 
-def generate_config(processed_data, output_file='config/config.yaml'):
+def generate_config(processed_data, output_file='config.yaml'):
     config = {
-        "maxlength": processed_data['maxlength'],
+        "maxlength": int(processed_data['maxlength']),
         "num_encoder_tokens": processed_data['num_encoder_tokens'],
         "num_decoder_tokens": processed_data['num_decoder_tokens'],
         "indo_vocab_size": processed_data['indo_vocab_size'],
@@ -21,16 +21,11 @@ def generate_config(processed_data, output_file='config/config.yaml'):
         # Training parameters 
         "batch_size": 64,
         "epochs": 20,
-        "optimizer": "Adam",
+        "optimizer": "AdamW",
         "learning_rate": 0.001,
         "loss": "sparse_categorical_crossentropy",
         "metrics": ["accuracy"],
-        
-        # Data shapes (for reference)
-        "X_train_shape": processed_data['X_train'].shape,
-        "y_train_shape": processed_data['y_train'].shape,
-        "X_test_shape": processed_data['X_test'].shape,
-        "y_test_shape": processed_data['y_test'].shape,
+
     }
     
     with open(output_file, 'w') as f:
