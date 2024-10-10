@@ -24,7 +24,7 @@ def load_data():
     test_data.drop(columns="id", inplace=True)
     val_data.drop(columns="id", inplace=True)
 
-    return train_data, test_data
+    return train_data, test_data, val_data
 
 
 def load_stopwords():
@@ -100,7 +100,7 @@ def encode_sequences(tokenizer, length, lines):
 
 def main():
     # Load data
-    train_data, test_data = load_data()
+    train_data, test_data,val_data = load_data()
 
     # load stopwords
     javanese_stopwords, indonesian_stopwords = load_stopwords()
@@ -108,9 +108,10 @@ def main():
     # preprocess data
     train_data = preprocess_data(train_data, javanese_stopwords, indonesian_stopwords)
     test_data = preprocess_data(test_data, javanese_stopwords, indonesian_stopwords)
+    val_data = preprocess_data(val_data, javanese_stopwords, indonesian_stopwords)
 
     # Combine data (train and test data)
-    combined_data = pd.concat([train_data, test_data], ignore_index=True)
+    combined_data = pd.concat([train_data, test_data, val_data], ignore_index=True)
     combined_data = shuffle(combined_data)
 
     # Get vocabulary
