@@ -15,14 +15,14 @@ class Trainer:
         self.model.compile(optimizer=optimizer, loss=loss, metrics=metrics)
         print("Model compiled successfull")
 
-    def fit(self, x, y, batch_size, epochs,X_val,y_val, validation_split=0.2, **kwargs):
+    def fit(self, x, y, batch_size, epochs, validation_split=0.2, **kwargs):
         # ex: x = [X_train, y_train.reshape(y_train.shape[0], y_train.shape[1], 1)]
         #     y = y_train.reshape(y_train.shape[0], y_train.shape[1], 1)
         self.history = self.model.fit(
             x, y,
             batch_size=batch_size,
             epochs=epochs,
-            validation_data = (X_val,y_val),
+            validation_split=validation_split,
             **kwargs
         )
 
