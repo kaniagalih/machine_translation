@@ -1,0 +1,26 @@
+name: mt_venv
+
+channels:
+  - defaults
+  - conda-forge
+  - anaconda
+  - pytorch
+
+dependencies:
+  - python==3.11
+  - nltk==3.8.1
+  - numpy==1.23.5
+  - pandas==2.2.3
+  - PyYAML==6.0.2
+  - scikit-learn==1.5.2
+  - pytorch==2.3.0  
+  - torchvision  
+  # - cpuonly  # Remove this if using GPU (then use `cudatoolkit` instead)
+  - cudatoolkit==11.8.0
+  - tqdm==4.66.5
+  - transformers==4.44.2
+  - matplotlib==3.7.2
+  - seaborn==0.12.2
+  - keras==2.15.0
+  - pip:
+    - tensorflow==2.13.0
