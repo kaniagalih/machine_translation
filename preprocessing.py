@@ -111,7 +111,7 @@ def main():
     val_data = preprocess_data(val_data, javanese_stopwords, indonesian_stopwords)
 
     # Combine data (train and test data)
-    combined_data = pd.concat([train_data, test_data, val_data], ignore_index=True)
+    combined_data = pd.concat([train_data, test_data], ignore_index=True)
     combined_data = shuffle(combined_data)
 
     # Get vocabulary
