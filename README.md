@@ -40,3 +40,10 @@ This project implements a machine translation model that translates text from Ja
      ```bash
     conda deactivate
     ```
+
+
+organization
+app
+|__ main.py
+|__ preprocessing data 
+   |_preprocessing 
