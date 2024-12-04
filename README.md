@@ -41,9 +41,3 @@ This project implements a machine translation model that translates text from Ja
     conda deactivate
     ```
 
-
-organization
-app
-|__ main.py
-|__ preprocessing data 
-   |_preprocessing 
