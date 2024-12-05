@@ -1,5 +1,23 @@
 # 3 - app/services/preprocessing_pipeline.py
 
+import pickle
+import re
+import csv
+import matplotlib.pyplot as plt 
+import pandas as pd 
+import seaborn as sns 
+from pathlib import Path
+from collections import defaultdict
+from typing import Dict, List, Set,Optional
+
+from preprocessing import build_tokenizer
+from preprocessing import preprocess_text
+from preprocessing import add_start_end_tokens
+from preprocessing import get_vocab
+from preprocessing import encode_and_pad
+from sklearn.model_selection import train_test_split, KFold
+
+
 # Main processing pipeline
 def process_pipeline(n_splits, random_state,vocab_save_dir="vocabularies"):
     Path(vocab_save_dir).mkdir(parents=True, exist_ok=True)
