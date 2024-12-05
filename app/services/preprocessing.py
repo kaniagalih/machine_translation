@@ -242,9 +242,9 @@ class SlangLoader:
 # Contoh pengujian dengan konfigurasi
 config = {
     "slang_dictionaries": [
-        "/content/drive/MyDrive/Dataset/MT-JavaIndo/new_kamusalay.csv",
-        "/content/drive/MyDrive/Dataset/MT-JavaIndo/inforformal-formal-Indonesian-dictionary.tsv",
-        "/content/drive/MyDrive/Dataset/MT-JavaIndo/dataset cerpen/kamus_alay_versi2.csv"
+        '../app/data/new_kamusalay.csv',
+        '../app/data/inforformal-formal-Indonesian-dictionary.tsv',
+        '../app/data/kamus_alay_versi2.csv'
     ]
 }
 
