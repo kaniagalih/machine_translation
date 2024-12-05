@@ -1,12 +1,22 @@
 # 2 - app/services/preprocess_data.py
 
+import pandas as pd 
+import re 
+import unicodedata
+from bpemb import BPEmb
+from string import punctuation
+from collections import defaultdict
+from nltk.tokenize import word_tokenize
+from tensorflow.keras.preprocessing.text import Tokenizer
+from tensorflow.keras.preprocessing.sequence import pad_sequences
+
 def load_data(path):
     return pd.read_json(path).drop(columns='id')
 
 def load_dualisme_java_dictionary():
     # Load slang dictionary from CSV
     try:
-      dualisme_dict = pd.read_csv("/content/drive/MyDrive/Dataset/MT-JavaIndo/nusa/dict_dualisme.csv")
+      dualisme_dict = pd.read_csv('../app/data/dict_dualisme.csv')
       return dict(zip(dualisme_dict['dualisme'], dualisme_dict['usedword']))
     except FileNotFoundError as e:
       print(f"Warning: Slang dictionary file not found. Proceeding without slang replacement. Error: {e}")
@@ -17,16 +27,16 @@ def load_slang_dictionary():
     # Load slang dictionary from CSV
     try:
         slang_dict_1 = pd.read_csv(
-            "/content/drive/MyDrive/Dataset/MT-JavaIndo/new_kamusalay.csv",
+            '../app/data/new_kamusalay.csv',
             encoding="latin1",
             names=["slang", "formal"]  # Set custom column names
         )
         slang_dict_2 = pd.read_csv(
-            "/content/drive/MyDrive/Dataset/MT-JavaIndo/inforformal-formal-Indonesian-dictionary.tsv",
+            '../app/data/inforformal-formal-Indonesian-dictionary.tsv',
             sep='\t', header=0
         )
         slang_dict_2 = slang_dict_2.rename(columns={'informal': 'slang'})
-        slang_dict_3 = pd.read_csv('/content/drive/MyDrive/Dataset/MT-JavaIndo/dataset cerpen/kamus_alay_versi2.csv')
+        slang_dict_3 = pd.read_csv('../app/data/kamus_alay_versi2.csv')
         slang_dict_3 = slang_dict_3.rename(columns={'Word': 'slang', 'formal word': 'formal'})
 
         # Combine the slang dictionaries
