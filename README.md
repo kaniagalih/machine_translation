@@ -37,6 +37,6 @@ This project implements a machine translation model that translates text from Ja
 ## How to run
  **Run using streamlit** 
     
-     ```bash
+    ```bash
     streamlit run app/dev/app.py 
     ```
