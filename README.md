@@ -11,33 +11,26 @@ This project implements a machine translation model that translates text from Ja
 
 2. **Create a Virtual Environment**
     ```bash
-    python -m venv mt_venv
-    ```
-    or
-    ```bash
-    conda env create --prefix ./mt_venv --file requirements.yaml
+    python3 -m venv mt_venv #on windows & linux 
+    conda env create --prefix ./mt_venv --file requirements.yaml #using conda env 
     ```
 
 3. **Activate the Virtual Environment**
 
     ```bash
-    mt_venv\Scripts\activate
-    ```
-    or 
-     ```bash
-   conda activate ./mt_venv
+    mt_venv\Scripts\activate #on windows
+    conda activate ./mt_venv #using conda
+    source .mt_venv/bin/activate #on linux 
     ```
 
 4. **Install the Required Packages**
     ```bash
     pip install -r requirements.txt
     ```
-5. **Verify Installation**
-    ```bash
-    conda list
-    ```
+
 6. **Deactive Environment**
      ```bash
-    conda deactivate
+    conda deactivate #conda 
+    deactivate #windows & linux 
     ```
 
