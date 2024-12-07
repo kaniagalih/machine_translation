@@ -29,14 +29,13 @@ This project implements a machine translation model that translates text from Ja
     ```
 
 6. **Deactive Environment**
-     ```bash
+    ```bash
     conda deactivate #conda 
     deactivate #windows & linux 
     ```
 
 ## How to run
  **Run using streamlit** 
-    
     ```bash
-    streamlit run app/dev/app.py 
+    streamlit run app/dev/app.py
     ```
