@@ -1,6 +1,6 @@
 # Javanese to Indonesian Machine Translation
 
-This project implements a machine translation model that translates text from Javanese to Indonesian using Long Short-Term Memory (LSTM) networks with an attention mechanism. The model is designed to handle the unique linguistic features of both languages, providing accurate translations.
+This project implements a machine translation model that translates text from Javanese to Indonesian using Bidirectional Long Short-Term Memory (Bi-LSTM) networks with an attention mechanism. The model is designed to handle the unique linguistic features of both languages, providing accurate translations.
 
 ## Installation
 
@@ -18,7 +18,7 @@ This project implements a machine translation model that translates text from Ja
 3. **Activate the Virtual Environment**
 
     ```bash
-    mt_venv\Scripts\activate #on windows
+    mt_venv/Scripts/activate #on windows
     conda activate ./mt_venv #using conda
     source .mt_venv/bin/activate #on linux 
     ```
@@ -34,3 +34,8 @@ This project implements a machine translation model that translates text from Ja
     deactivate #windows & linux 
     ```
 
+## How to run
+ **Run using streamlit** 
+    ``bash
+    streamlit run app/dev/app.py
+    ```
