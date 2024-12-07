@@ -7,16 +7,29 @@ import streamlit as st
 from pathlib import Path
 import pickle
 
-# Attention
-# https://colab.research.google.com/drive/1XrjPL3O_szhahYZW0z9yhCl9qvIcJJYW
-
 import tensorflow as tf
-from tensorflow.keras.layers import Concatenate,Layer
+from tensorflow.keras.layers import Input, Embedding, LSTM, Dense, Bidirectional, Concatenate, LayerNormalization, ActivityRegularization, Layer
 from tensorflow.keras import backend as K
-from tensorflow.keras.layers import Bidirectional, LSTM
+from tensorflow.keras.models import Model
 
-import tensorflow as tf
 tf.compat.v1.logging.set_verbosity
+from bpemb import BPEmb
+
+# # Specify a writable cache directory
+# cache_dir = os.path.expanduser('~/.cache/bpemb')
+
+# # Initialize BPEmb with the new cache directory
+# bpemb_jv = BPEmb(lang="jv", vs=10000, cache_dir=cache_dir)
+
+import os
+
+# Set custom cache directory
+os.environ['XDG_CACHE_HOME'] = '/home/kaniagalih/skripsi/machine_translation/model/bpemb/jv/jv.wiki.bpe.vs10000.model'
+
+from bpemb import BPEmb
+
+# Initialize BPEmb
+bpemb = BPEmb(lang="jv", vs=10000)
 
 class AttentionLayer(Layer):
     """
@@ -312,7 +325,7 @@ def translate(input_text, model_path, tokenizer_path, max_length=35):
     # Load tokenizer information
     # tokenizer_path = Path("D:/SKRIPSI/machine_translation/model/tokenizer_info_(4).pkl'")
 
-    with open(str(tokenizer_path), 'rb') as file:
+    with open(tokenizer_path, 'rb') as file:
         tokenizer_info = pickle.load(file)
         
 
@@ -388,10 +401,7 @@ st.title("Translation App")
 
 # Default paths
 DEFAULT_MODEL_PATH = '../model/Bi-LSTM-Attention-64-Dropout_0.2-Fold_4.keras'
-# DEFAULT_TOKENIZER_PATH = Path('D:/SKRIPSI/machine_translation/model/tokenizer_info_(4).pkl')
-from pathlib import WindowsPath
-DEFAULT_TOKENIZER_PATH = WindowsPath('D:/SKRIPSI/machine_translation/model/tokenizer_info_(4).pkl')
-
+DEFAULT_TOKENIZER_PATH = Path('/home/kaniagalih/skripsi/machine_translation/model/tokenizer_info (4).pkl')
 
 # Input text from user
 input_text = st.text_area("Enter the input text:")
