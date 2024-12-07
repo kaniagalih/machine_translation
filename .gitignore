@@ -1,3 +1,6 @@
 glove.6B.100d.txt
 model_lstm.keras
 mt_venv
+model
+app\services\__pycache__
+app\services\custom_preprocessing_config.yaml
