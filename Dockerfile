@@ -17,4 +17,4 @@ COPY . .
 EXPOSE 8501
 
 # Jalankan aplikasi menggunakan Flask (atau bisa menggunakan Gunicorn untuk produksi)
-# CMD ["python", "app.py"]
+CMD ["streamlit", "run", "app/dev/app.py"]

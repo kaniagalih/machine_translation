@@ -34,8 +34,32 @@ This project implements a machine translation model that translates text from Ja
     deactivate #windows & linux 
     ```
 
-## How to run
-Run using streamlit 
-    ``` 
+## Running the Application
+
+### Option 1: Run Using Streamlit
+
+Run the application using Streamlit:
+
+    ```bash
     streamlit run app/dev/app.py
+    ```
+
+### Option 2: Run Using Docker
+
+If you'd like to deploy the application using Docker, follow these steps:
+
+1. **Build the Docker Image**
+    ```bash
+    docker build -t java-translator .
+    ```
+
+2. **Run the Docker Container**
+    ```bash
+    docker run -d -p 8501:8501 java-translator
+    ```
+
+3. **Access the Application**
+    After running the container, open your browser and go to the following URL:
+    ```bash
+    http://localhost:8501/
     ```
