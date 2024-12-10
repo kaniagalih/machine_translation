@@ -50,16 +50,20 @@ If you'd like to deploy the application using Docker, follow these steps:
 
 1. **Build the Docker Image**
     ```bash
-    docker build -t java-translator .
+    docker build -t java-translator . | docker-compose up -d 
     ```
 
 2. **Run the Docker Container**
     ```bash
-    docker run -d -p 8501:8501 java-translator
+    docker run -d -p 8501:8501 java-translator | if you do "docker-compose up -d" you don't need to run this command 
     ```
 
 3. **Access the Application**
     After running the container, open your browser and go to the following URL:
     ```bash
     http://localhost:8501/
+    ```
+4. **Stop the Docker**
+    ```bash
+    docker stop | docker-compose down
     ```
