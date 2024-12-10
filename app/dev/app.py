@@ -17,7 +17,7 @@ tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
 bpe = BPEmb(lang="jv", vs=5000)
 
 # Load tokenizer information
-DEFAULT_MODEL_PATH = 'model/64-Bahdanau-Dropout-fold-0.keras'
+DEFAULT_MODEL_PATH = 'model/64-Bahdanau-Dropout-fold-4.keras'
 DEFAULT_TOKENIZER_PATH = "model/tokenizer_info (11).pkl"
 
 # Load tokenizer data
@@ -153,20 +153,66 @@ def decode_sequence(input_seq, encoder_model, decoder_model, max_length_target, 
 
     return decoded_sentence.strip()
 
-def main():
-    # Streamlit app
-    st.title("Translation App")
+def main():            
+    import streamlit as st
+    import sqlite3
+    from db import create_table, insert_data
+    
+    # Initialize the database table
+    create_table()
+    
+    # Initialize session state
+    st.session_state.setdefault('translations', [])
+    st.session_state.setdefault('feedback_submitted', False)
+    
+    # Application title
+    st.title("Javanese Translation App")
 
-    # Input text from user
-    input_text = st.text_area("Enter the input text:")
+    # User input for name and age
+    name = st.text_input("Enter your name:")
+    age = st.number_input("Enter your age:", min_value=0, max_value=120)
 
-    # Translate button
+    # Input for text in Javanese
+    jawa_text = st.text_area("Enter the input text in javanese:")
+
+    # Button to translate text from Javanese to Indonesian
     if st.button("Translate"):
-        if input_text.strip():
-            translated_text = translate(input_text)
+        if jawa_text and name and age:
+            translated_text = translate(jawa_text)
             st.success(f"Translated Text: {translated_text}")
+            
+            # Store the translation in session state
+            st.session_state.translations.append({
+                'jawa_text': jawa_text,
+                'indonesia_text': translated_text
+            })
         else:
-            st.warning("Please enter some text to translate.")
+            st.error("Please fill out all fields!")
+
+    # Display previous translations
+    if st.session_state.translations:
+        st.write("Previous Translation:")
+        for idx, translation in enumerate(st.session_state.translations):
+            st.write(f"{idx + 1}. Javanese Text: {translation['jawa_text']} | Translation: {translation['indonesia_text']}")
+
+    # Feedback section
+    if st.button("Give Feedback"):
+        if st.session_state.translations:
+            st.session_state.feedback_submitted = True
+        else:
+            st.warning("Please do the translation first.")
+
+    if st.session_state.feedback_submitted:
+        # Input for rating (1-5)
+        rating = st.slider("Give Rating (1-5):", min_value=1, max_value=5, value=3)
+        suggestion = st.text_input("Your Suggestion:")
+
+        if st.button("Send Feedback"):
+            for translation in st.session_state.translations:
+                insert_data(name, age, translation['jawa_text'], translation['indonesia_text'], rating, suggestion)
+            st.success("Feedback successfully saved to database!")
+            st.session_state.feedback_submitted = False
+            st.session_state.translations = [] 
 
 if __name__ == "__main__":
     main()
