@@ -4,7 +4,7 @@ import numpy as np
 import tensorflow as tf
 from tensorflow.keras.models import load_model, Model
 from tensorflow.keras.layers import Input, Embedding, LSTM, Dense, Bidirectional, Concatenate
-from bpemb import BPEmb
+# from bpemb import BPEmb
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 import streamlit as st  # Streamlit for web interface
 
@@ -14,7 +14,7 @@ from Attention import AttentionLayer  # Custom attention layer
 tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
 
 # Initialize BPE for tokenization
-bpe = BPEmb(lang="jv", vs=5000)
+# bpe = BPEmb(lang="jv", vs=5000)
 
 # Load tokenizer information
 DEFAULT_MODEL_PATH = 'model/64-Bahdanau-Dropout-fold-4.keras'
