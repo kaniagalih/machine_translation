@@ -3,3 +3,4 @@ model_lstm.keras
 mt_venv
 app/services/__pycache__/
 app/services/custom_preprocessing_config.yaml
+app/dev/__pycache__
