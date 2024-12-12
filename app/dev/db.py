@@ -1,14 +1,19 @@
 import psycopg2
+import os
 from psycopg2 import pool
+from dotenv import load_dotenv
 
 # Database connection parameters
 # Replace these with your actual PostgreSQL connection details
+
+load_dotenv()
+
 DB_PARAMS = {
-    "dbname": "machinetranslationdb",
-    "user": "machinetranslationdb_owner",
-    "password": "zkh5t4bCByiu",
-    "host": "ep-jolly-recipe-a5isn4mp.us-east-2.aws.neon.tech",
-    "port": "5432"
+    "dbname": os.getenv("DB_NAME"),
+    "user": os.getenv("DB_USER"),
+    "password": os.getenv("DB_PASSWORD"),
+    "host": os.getenv("DB_HOST"),
+    "port": os.getenv("DB_PORT"),
 }
 
 # Create a connection pool for efficient database connections
