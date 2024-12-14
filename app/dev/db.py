@@ -52,7 +52,7 @@ def create_table():
         if conn:
             connection_pool.putconn(conn)
 
-def insert_data(name, age, jawa_text, indonesia_text, rating, suggestion):
+def insert_data(name, age, jawa_text, indonesia_text, rating, suggestion, expected):
     """
     Insert a new translation record into the database.
     
@@ -72,10 +72,10 @@ def insert_data(name, age, jawa_text, indonesia_text, rating, suggestion):
             c.execute(
                 """
                 INSERT INTO translations 
-                (name, age, jawa_text, indonesia_text, rating, suggestion) 
-                VALUES (%s, %s, %s, %s, %s, %s)
+                (name, age, jawa_text, indonesia_text, rating, suggestion, expected) 
+                VALUES (%s, %s, %s, %s, %s, %s, %s)
                 """, 
-                (name, age, jawa_text, indonesia_text, rating, suggestion)
+                (name, age, jawa_text, indonesia_text, rating, suggestion, expected)
             )
         
         # Commit the transaction

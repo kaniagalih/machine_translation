@@ -156,7 +156,7 @@ def decode_sequence(input_seq, encoder_model, decoder_model, max_length_target, 
 def main():            
     import streamlit as st
     import sqlite3
-    from db import create_table, insert_data
+    from machine_translation.db import create_table, insert_data
     
     # Initialize the database table
     create_table()
@@ -207,9 +207,12 @@ def main():
         rating = st.slider("Give Rating (1-5):", min_value=1, max_value=5, value=3)
         suggestion = st.text_input("Your Suggestion:")
 
+        # Added expected input field
+        expected = st.text_input("Apa hasil translate yang kamu harapkan?")  # **Added part**
+
         if st.button("Send Feedback"):
             for translation in st.session_state.translations:
-                insert_data(name, age, translation['jawa_text'], translation['indonesia_text'], rating, suggestion)
+                insert_data(name, age, translation['jawa_text'], translation['indonesia_text'], rating, suggestion, expected)
             st.success("Feedback successfully saved to database!")
             st.session_state.feedback_submitted = False
             st.session_state.translations = [] 
