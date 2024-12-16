@@ -5,3 +5,4 @@ app/services/__pycache__/
 app/services/custom_preprocessing_config.yaml
 app/dev/__pycache__
 .env
+app/model
