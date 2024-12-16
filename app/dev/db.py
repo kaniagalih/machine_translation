@@ -37,7 +37,9 @@ def create_table():
                     jawa_text TEXT NOT NULL,
                     indonesia_text TEXT NOT NULL,
                     rating INTEGER NOT NULL,
-                    suggestion TEXT NOT NULL
+                    expected TEXT NOT NULL,
+                    feedback TEXT NOT NULL
+                    
                 )
             """)
         
@@ -52,7 +54,7 @@ def create_table():
         if conn:
             connection_pool.putconn(conn)
 
-def insert_data(name, age, jawa_text, indonesia_text, rating, suggestion, expected):
+def insert_data(name, age, jawa_text, indonesia_text, rating, expected, feedback):
     """
     Insert a new translation record into the database.
     
@@ -61,7 +63,8 @@ def insert_data(name, age, jawa_text, indonesia_text, rating, suggestion, expect
     :param jawa_text: Text in Javanese
     :param indonesia_text: Text in Indonesian
     :param rating: Rating of the translation
-    :param suggestion: Translator's suggestions
+    :param expected: Correct translation from user
+    :param feedback: Translator's suggestions
     """
     try:
         # Get a connection from the pool
@@ -72,10 +75,10 @@ def insert_data(name, age, jawa_text, indonesia_text, rating, suggestion, expect
             c.execute(
                 """
                 INSERT INTO translations 
-                (name, age, jawa_text, indonesia_text, rating, suggestion, expected) 
+                (name, age, jawa_text, indonesia_text, rating, expected, feedback) 
                 VALUES (%s, %s, %s, %s, %s, %s, %s)
                 """, 
-                (name, age, jawa_text, indonesia_text, rating, suggestion, expected)
+                (name, age, jawa_text, indonesia_text, rating, expected, feedback)
             )
         
         # Commit the transaction
