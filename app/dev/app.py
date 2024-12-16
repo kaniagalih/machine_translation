@@ -17,8 +17,8 @@ tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
 # bpe = BPEmb(lang="jv", vs=5000)
 
 # Load tokenizer information
-DEFAULT_MODEL_PATH = 'model/64-Bahdanau-Dropout-fold-4.keras'
-DEFAULT_TOKENIZER_PATH = "model/tokenizer_info (11).pkl"
+DEFAULT_MODEL_PATH = "app/model/64-Bahdanau-no-dropout-fold-0.keras"
+DEFAULT_TOKENIZER_PATH = 'app/model/tokenizer_info (14).pkl'
 
 # Load tokenizer data
 with open(DEFAULT_TOKENIZER_PATH, "rb") as f:
@@ -156,34 +156,42 @@ def decode_sequence(input_seq, encoder_model, decoder_model, max_length_target, 
 def main():            
     import streamlit as st
     import sqlite3
-    from machine_translation.db import create_table, insert_data
+    from db import create_table, insert_data
     
     # Initialize the database table
     create_table()
     
     # Initialize session state
-    st.session_state.setdefault('translations', [])
-    st.session_state.setdefault('feedback_submitted', False)
+    if 'translations' not in st.session_state:
+        st.session_state['translations'] = []
+    if 'feedback_submitted' not in st.session_state:
+        st.session_state['feedback_submitted'] = False
+    if 'name' not in st.session_state:
+        st.session_state['name'] = ""
+    if 'age' not in st.session_state:
+        st.session_state['age'] = 0
+    if 'jawa_text' not in st.session_state:
+        st.session_state['jawa_text'] = ""
     
     # Application title
     st.title("Javanese Translation App")
 
     # User input for name and age
-    name = st.text_input("Enter your name:")
-    age = st.number_input("Enter your age:", min_value=0, max_value=120)
+    st.session_state.name = st.text_input("Enter your name:", value=st.session_state.name)
+    st.session_state.age = st.number_input("Enter your age:", min_value=0, max_value=120, value=st.session_state.age)
 
     # Input for text in Javanese
-    jawa_text = st.text_area("Enter the input text in javanese:")
+    st.session_state.jawa_text = st.text_area("Enter the input text in javanese:", value=st.session_state.jawa_text)
 
     # Button to translate text from Javanese to Indonesian
     if st.button("Translate"):
-        if jawa_text and name and age:
-            translated_text = translate(jawa_text)
+        if st.session_state.jawa_text and st.session_state.name and st.session_state.age:
+            translated_text = translate(st.session_state.jawa_text)
             st.success(f"Translated Text: {translated_text}")
             
             # Store the translation in session state
             st.session_state.translations.append({
-                'jawa_text': jawa_text,
+                'jawa_text': st.session_state.jawa_text,
                 'indonesia_text': translated_text
             })
         else:
@@ -191,7 +199,7 @@ def main():
 
     # Display previous translations
     if st.session_state.translations:
-        st.write("Previous Translation:")
+        st.write("Previous Translations:")
         for idx, translation in enumerate(st.session_state.translations):
             st.write(f"{idx + 1}. Javanese Text: {translation['jawa_text']} | Translation: {translation['indonesia_text']}")
 
@@ -205,17 +213,25 @@ def main():
     if st.session_state.feedback_submitted:
         # Input for rating (1-5)
         rating = st.slider("Give Rating (1-5):", min_value=1, max_value=5, value=3)
-        suggestion = st.text_input("Your Suggestion:")
-
-        # Added expected input field
-        expected = st.text_input("Apa hasil translate yang kamu harapkan?")  # **Added part**
+        # Added correct translation
+        expected = st.text_input("Insert the correct translation")  # **Added part**
+        # Feedback 
+        feedback = st.text_input("Give Your Feedback:")
 
         if st.button("Send Feedback"):
             for translation in st.session_state.translations:
-                insert_data(name, age, translation['jawa_text'], translation['indonesia_text'], rating, suggestion, expected)
-            st.success("Feedback successfully saved to database!")
+                insert_data(st.session_state.name, st.session_state.age, translation['jawa_text'], translation['indonesia_text'], rating, expected, feedback)
+            st.success("Feedback successfully saved to the database!")
+
+            # Reset fields and session state for next input
             st.session_state.feedback_submitted = False
             st.session_state.translations = [] 
+            st.session_state.name = ""
+            st.session_state.age = 0
+            st.session_state.jawa_text = ""
+
+            # Refresh the page
+            st.experimental_rerun()
 
 if __name__ == "__main__":
     main()
