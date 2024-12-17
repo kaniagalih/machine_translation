@@ -224,7 +224,7 @@ def main():
             st.success("Feedback successfully saved to the database!")
 
             # Reset fields and session state for next input
-            st.session_state.feedback_submitted = False
+            st.session_state.feedback_submitted = True
             st.session_state.translations = [] 
             st.session_state.name = ""
             st.session_state.age = 0
