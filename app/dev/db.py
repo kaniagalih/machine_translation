@@ -38,7 +38,7 @@ def create_table():
                     indonesia_text TEXT NOT NULL,
                     rating INTEGER NOT NULL,
                     expected TEXT NOT NULL,
-                    feedback TEXT NOT NULL
+                    suggestion TEXT NOT NULL
                     
                 )
             """)
@@ -64,7 +64,7 @@ def insert_data(name, age, jawa_text, indonesia_text, rating, expected, feedback
     :param indonesia_text: Text in Indonesian
     :param rating: Rating of the translation
     :param expected: Correct translation from user
-    :param feedback: Translator's suggestions
+    :param suggestion: Translator's suggestions
     """
     try:
         # Get a connection from the pool
@@ -75,10 +75,10 @@ def insert_data(name, age, jawa_text, indonesia_text, rating, expected, feedback
             c.execute(
                 """
                 INSERT INTO translations 
-                (name, age, jawa_text, indonesia_text, rating, expected, feedback) 
+                (name, age, jawa_text, indonesia_text, rating, expected, suggestion) 
                 VALUES (%s, %s, %s, %s, %s, %s, %s)
                 """, 
-                (name, age, jawa_text, indonesia_text, rating, expected, feedback)
+                (name, age, jawa_text, indonesia_text, rating, expected, suggestion)
             )
         
         # Commit the transaction

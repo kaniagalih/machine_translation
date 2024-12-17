@@ -216,11 +216,11 @@ def main():
         # Added correct translation
         expected = st.text_input("Insert the correct translation")  # **Added part**
         # Feedback 
-        feedback = st.text_input("Give Your Feedback:")
+        suggestion = st.text_input("Give Your Feedback:")
 
         if st.button("Send Feedback"):
             for translation in st.session_state.translations:
-                insert_data(st.session_state.name, st.session_state.age, translation['jawa_text'], translation['indonesia_text'], rating, expected, feedback)
+                insert_data(st.session_state.name, st.session_state.age, translation['jawa_text'], translation['indonesia_text'], rating, expected, suggestion)
             st.success("Feedback successfully saved to the database!")
 
             # Reset fields and session state for next input
