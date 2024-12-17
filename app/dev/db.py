@@ -54,7 +54,7 @@ def create_table():
         if conn:
             connection_pool.putconn(conn)
 
-def insert_data(name, age, jawa_text, indonesia_text, rating, expected, feedback):
+def insert_data(name, age, jawa_text, indonesia_text, rating, expected, suggestion):
     """
     Insert a new translation record into the database.
     
