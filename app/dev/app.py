@@ -229,6 +229,8 @@ def main():
             st.session_state.name = ""
             st.session_state.age = 0
             st.session_state.jawa_text = ""
+            expected = ""
+            suggestion =""
 
             # Refresh the page
             st.experimental_rerun()
