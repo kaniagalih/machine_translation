@@ -233,7 +233,7 @@ def main():
             suggestion =""
 
             # Refresh the page
-            st.experimental_rerun()
+            st.rerun()
 
 if __name__ == "__main__":
     main()
