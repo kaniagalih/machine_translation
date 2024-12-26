@@ -9,5 +9,5 @@ services:
     ports:
       - "8501:8501"
     volumes:
-      - ./app:/app/app  # For hot reload during development
+      - ./app:/app # For hot reload during development
     env_file: ".env"
