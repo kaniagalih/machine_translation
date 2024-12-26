@@ -1,13 +1,12 @@
-
+version: '3.8'
 
 services:
   app:
-    image: gcr.io/javanese-machine-translation/streamlit-app:latest
-    # build:
-    #   context: .
-    #   dockerfile: Dockerfile
+    image: java-translator
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
       - "8501:8501"
     volumes:
       - ./app:/app/app  # For hot reload during development
-    env_file: ".env"

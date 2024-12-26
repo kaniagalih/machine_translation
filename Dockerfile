@@ -2,7 +2,7 @@
 FROM python:3.10-slim
 
 # Tentukan direktori kerja di dalam container
-WORKDIR /app/dev
+WORKDIR /app
 
 # Salin file requirements.txt ke dalam container
 COPY requirements.txt .
@@ -11,11 +11,10 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Salin seluruh kode aplikasi ke dalam container
-COPY ./app/ /app/
-
+COPY . .
 
 # Tentukan port yang digunakan oleh aplikasi
 EXPOSE 8501
 
 # Jalankan aplikasi menggunakan Flask (atau bisa menggunakan Gunicorn untuk produksi)
-CMD ["streamlit", "run", "app.py"]
+CMD ["streamlit", "run", "app/dev/app.py"]
