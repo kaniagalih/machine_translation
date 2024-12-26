@@ -1,13 +1,14 @@
-
+version: "3.8"  # Specify the Compose file version
 
 services:
   app:
     image: gcr.io/javanese-machine-translation/streamlit-app:latest
+    # Uncomment the lines below if you want to build the image locally
     # build:
     #   context: .
     #   dockerfile: Dockerfile
     ports:
       - "8501:8501"
     volumes:
-      - ./app:/app # For hot reload during development
+      - ./app:/app/app   # For hot reload during development
     env_file: ".env"
