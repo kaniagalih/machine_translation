@@ -11,11 +11,11 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Salin seluruh kode aplikasi ke dalam container
-COPY ./app/ /app/
+COPY . .
 
 
 # Tentukan port yang digunakan oleh aplikasi
 EXPOSE 8501
 
 # Jalankan aplikasi menggunakan Flask (atau bisa menggunakan Gunicorn untuk produksi)
-CMD ["streamlit", "run", "dev/app.py"]
+CMD ["streamlit", "run", "app/dev/app.py"]
