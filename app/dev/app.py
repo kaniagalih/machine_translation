@@ -26,8 +26,8 @@ st.title("Javanese Translation App")
 
 # Helper function: Handle user input
 def handle_user_input():
-    st.session_state.name = st.text_input("Enter your name:", value=st.session_state.name)
-    st.session_state.age = st.number_input("Enter your age:", min_value=0, max_value=120, value=st.session_state.age)
+    st.session_state.name = st.text_input("Enter your name:", value=st.session_state.name, key="name_input")
+    st.session_state.age = st.number_input("Enter your age:", min_value=0, max_value=120, value=st.session_state.age, key="age_input")
     
     if st.button("Submit"):
         if not st.session_state.name or st.session_state.age == 0:
@@ -56,7 +56,7 @@ def display_previous_translations():
         st.success(f"Translated Text: {last_translation['indonesia_text']}")
 
         if not last_translation['expected']:
-            expected = st.text_input("Insert the correct translation:")
+            expected = st.text_input("Insert the correct translation:", key="expected_translation_input")
             if st.button("Submit Correction"):
                 st.session_state.translations[-1]['expected'] = expected
         
