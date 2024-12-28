@@ -4,7 +4,7 @@ from db import create_table, insert_data
 from startup import translate
 
 # Initialize the database table
-create_table()
+# create_table()
 
 # Helper function: Initialize session state
 def initialize_session_state():
@@ -26,8 +26,8 @@ st.title("Javanese Translation App")
 
 # Helper function: Handle user input
 def handle_user_input():
-    st.session_state.name = st.text_input("Enter your name:", value=st.session_state.name, key="name_input")
-    st.session_state.age = st.number_input("Enter your age:", min_value=0, max_value=120, value=st.session_state.age, key="age_input")
+    st.session_state.name = st.text_input("Enter your name:", value=st.session_state.name)
+    st.session_state.age = st.number_input("Enter your age:", min_value=0, max_value=120, value=st.session_state.age)
     
     if st.button("Submit"):
         if not st.session_state.name or st.session_state.age == 0:
@@ -56,7 +56,7 @@ def display_previous_translations():
         st.success(f"Translated Text: {last_translation['indonesia_text']}")
 
         if not last_translation['expected']:
-            expected = st.text_input("Insert the correct translation:", key="expected_translation_input")
+            expected = st.text_input("Insert the correct translation:")
             if st.button("Submit Correction"):
                 st.session_state.translations[-1]['expected'] = expected
         
